@@ -31,4 +31,4 @@ jobs:
           script: |
             cd /var/www/html/myapp
             php artisan migrate 
-            git pull
+            sudo git pull
