@@ -18,6 +18,9 @@ jobs:
         with:
           php-version: '8.0'
 
+      - name: Update dependencies
+        run: composer update --no-interaction --prefer-dist
+
       - name: Migrate database
         env:
           DB_CONNECTION: ${{ secrets.DB_CONNECTION }}
