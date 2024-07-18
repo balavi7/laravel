@@ -21,9 +21,6 @@ jobs:
       - name: Update dependencies
         run: composer update --no-interaction --prefer-dist
 
-      - name: Clear cache
-        run: php artisan cache:clear
-
       - name: Set env variables
         env:
           DB_CONNECTION: ${{ secrets.DB_CONNECTION }}
@@ -33,6 +30,7 @@ jobs:
           DB_USERNAME: ${{ secrets.DB_USERNAME }}
           DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
         run: |
+              cd /var/www/html/myapp
               php artisan migrate 
 
       - name: Deploy to server
