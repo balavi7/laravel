@@ -21,7 +21,7 @@ jobs:
       - name: Update dependencies
         run: composer update --no-interaction --prefer-dist
 
-      - name: Migrate database
+      - name: Set env variables
         env:
           DB_CONNECTION: ${{ secrets.DB_CONNECTION }}
           DB_HOST: ${{ secrets.DB_HOST }}
@@ -29,8 +29,12 @@ jobs:
           DB_DATABASE: ${{ secrets.DB_DATABASE }}
           DB_USERNAME: ${{ secrets.DB_USERNAME }}
           DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
-        run: |
-          php artisan migrate --force
+
+      - name: Clear cache
+        run: php artisan cache:clear
+
+      - name: Migrate database
+        run: php artisan migrate 
 
       - name: Deploy to server
         uses: appleboy/ssh-action@master
